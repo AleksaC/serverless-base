@@ -4,9 +4,22 @@ Resources:
     Properties:
       TableName: ${self:service}-${self:provider.stage}-table
       BillingMode: PAY_PER_REQUEST
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
       KeySchema:
         - AttributeName: id
           KeyType: HASH
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - E1029
+      cfn_nag:
+        rules_to_suppress:
+          - id: W74
+            reason: "There is no need to encrypt this table"
+          - id: W28
+            reason: "Resources is protected by stack policy"

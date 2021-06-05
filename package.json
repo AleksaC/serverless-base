@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "lint": "eslint --fix src",
+    "lint": "eslint --fix .",
     "format": "prettier --write .",
     "deploy": "serverless deploy",
     "sls": "serverless"

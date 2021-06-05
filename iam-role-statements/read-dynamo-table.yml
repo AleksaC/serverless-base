@@ -1,0 +1,9 @@
+Effect: Allow
+Action:
+  - dynamodb:Scan
+  - dynamodb:Query
+  - dynamodb:GetItem
+  - dynamodb:DescribeTable
+Resource:
+  - !GetAtt Table.Arn
+  - !Sub "${Table.Arn}/index/*"

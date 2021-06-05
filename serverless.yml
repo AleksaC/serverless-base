@@ -1,0 +1,53 @@
+frameworkVersion: "2.44.0"
+
+service: ${env:SLS_SERVICE_NAME}
+
+useDotenv: true
+configValidationMode: error
+variablesResolutionMode: 20210326
+
+plugins:
+  - serverless-webpack
+  - serverless-iam-roles-per-function
+
+package:
+  individually: true
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+  region: ${opt:region, env:AWS_REGION, 'eu-central-1'}
+  stage: ${opt:stage, 'dev'}
+
+  stackPolicy:
+    - Effect: Deny
+      Action: Update:Replace
+      Principal: "*"
+      Resource: "*"
+      Condition:
+        StringEquals:
+          ResourceType:
+            - AWS::DynamoDB::Table
+
+    - Effect: Allow
+      Action: "Update:*"
+      Principal: "*"
+      Resource: "*"
+
+custom:
+  webpack:
+    webpackConfig: webpack.config.js
+    packager: yarn
+    includeModules:
+      forceExclude:
+        - aws-sdk
+
+functions:
+  example:
+    handler: src/lambdas/example.
+    iamRoleStatements:
+      - ${file(iam-role-statements/read-dynamo-table.yml)}
+
+resources:
+  - ${file(resources/dynamo-table.yml)}

@@ -1,0 +1,12 @@
+Resources:
+  Table:
+    Type: "AWS::DynamoDB::Table"
+    Properties:
+      TableName: ${self:service}-${self:provider.stage}-table
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH

@@ -23,7 +23,10 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        use: [{ loader: "ts-loader", options: { transpileOnly: true } }],
+        use: [
+          { loader: "babel-loader" },
+          { loader: "ts-loader", options: { transpileOnly: true } },
+        ],
         exclude: /node_modules/,
       },
     ],

@@ -45,7 +45,7 @@ custom:
 
 functions:
   example:
-    handler: src/lambdas/example.
+    handler: src/lambdas/example.handler
     iamRoleStatements:
       - ${file(iam-role-statements/read-dynamo-table.yml)}
 

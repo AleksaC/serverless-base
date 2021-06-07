@@ -23,10 +23,9 @@ module.exports = {
   },
   settings: {
     "import/resolver": {
-      node: {
-        extensions: ["ts"],
-        paths: ["node_modules", "node_modules/@types"],
-      },
+      typescript: {
+        alwaysTryTypes: true
+      }
     },
   },
 };
